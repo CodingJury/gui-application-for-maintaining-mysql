@@ -114,17 +114,19 @@ public class frmLogin extends javax.swing.JFrame {
 
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        // TODO add your handling code here:
+
         username = jTextFieldUsername.getText();
         password = new String(jPasswordField.getPassword());
 
-        System.out.println("Username : "+username+"\nPassword : "+password);
+//        System.out.println("Username : "+username+"\nPassword : "+password);
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/",username,password);
 
-
+            /*///////////////////////////////////////
+                     VISITING "frmDatabases"
+            //////////////////////////////////////*/
             frmDatabases dbwindowpannel=new frmDatabases();
             dbwindowpannel.setVisible(true);
             dbwindowpannel.enterUsername = username;

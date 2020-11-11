@@ -285,7 +285,7 @@ public class frmAlterTable extends javax.swing.JFrame {
 
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        // TODO add your handling code here:
+        
         frmTables tableswindowpannel=new frmTables();
         tableswindowpannel.setVisible(true);
         tableswindowpannel.useDatabase = useDatabase;
@@ -295,7 +295,7 @@ public class frmAlterTable extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        // TODO add your handling code here:
+        
         String columnName = jTextFieldColumnName.getText();
         String columnType = (String)jComboBoxColumnType.getSelectedItem();
         String strcolumnSize = jTextFieldColumnSize.getText();
@@ -357,8 +357,13 @@ public class frmAlterTable extends javax.swing.JFrame {
                                 System.out.println(sql);
 
                             }else{
-                                //modify or change or slide
-                                if (currentState == 1) { //  MODIFY 1    CHANGE 2    SLIDE  3
+                                /*///////////////////////////////////////////////
+                                             modify or change or slide
+                                  
+                                         MODIFY 1    CHANGE 2    SLIDE  3
+                                
+                                 ////////////////////////////////////////////////*/
+                                if (currentState == 1) { 
                                     System.out.println("add modify");
                                     sql = "ALTER TABLE "+selectTable+" MODIFY "+columnName+" "+columnType+" "+strcolumnSize+" "+strcolumnNotNull+" "+columnKey+" "+columnDefault+" "+columnExtra+" "+columnPosition+";";
                                     System.out.println(sql);
@@ -430,7 +435,7 @@ public class frmAlterTable extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+        
         jLabelDirectory.setText(""+jLabelDirectory.getText()+""+useDatabase+" > "+selectTable+" [Altering table]");
 
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
@@ -473,7 +478,7 @@ public class frmAlterTable extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButtonModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifyActionPerformed
-        // TODO add your handling code here:
+        
         if (currentState == 1) {  //  MODIFY 1    CHANGE 2    SLIDE  3
             System.out.println("You are already modifing one row, please mofidy it first");
         }else if (currentState == 2) {
@@ -548,7 +553,7 @@ public class frmAlterTable extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonModifyActionPerformed
 
     private void jButtonDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDropActionPerformed
-        // TODO add your handling code here:
+        
         if (currentState == 1) {  //  MODIFY 1    CHANGE 2    SLIDE  3
             System.out.println("Do not delete while modifying");
         }else if (currentState == 2) {
@@ -608,7 +613,7 @@ public class frmAlterTable extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonDropActionPerformed
 
     private void jButtonChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangeActionPerformed
-        // TODO add your handling code here:
+        
         if (currentState == 1) {  //  MODIFY 1    CHANGE 2    SLIDE  3
             System.out.println("You are modifying the column field, do it first");
         }else if (currentState == 2) {

@@ -254,7 +254,7 @@ public class frmCreateTable extends javax.swing.JFrame {
     
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        // TODO add your handling code here:
+
         frmTables tableswindowpannel=new frmTables();
         tableswindowpannel.setVisible(true);
         tableswindowpannel.useDatabase = useDatabase;
@@ -264,7 +264,7 @@ public class frmCreateTable extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        // TODO add your handling code here:
+
         String columnName = jTextFieldColumnName.getText();
         String columnType = (String)jComboBoxColumnType.getSelectedItem();
         String strcolumnSize = jTextFieldColumnSize.getText();
@@ -327,21 +327,18 @@ public class frmCreateTable extends javax.swing.JFrame {
                         }
                     }
                 }
-
-
-
             }
         }
 
 }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+   
         jLabelDirectory.setText(""+jLabelDirectory.getText()+""+useDatabase+" > "+createTableName+" [Creating table]");
     }//GEN-LAST:event_formWindowOpened
 
     private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
-        // TODO add your handling code here:
+   
         int r = jTable1.getSelectedRow();
 
         if (r == -1) {
@@ -371,7 +368,7 @@ public class frmCreateTable extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonEditActionPerformed
 
     private void jButtonExecuteCreateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExecuteCreateTableActionPerformed
-        // TODO add your handling code here:
+   
         int row = jTable1.getRowCount();
         int col = jTable1.getColumnCount();
         
@@ -430,7 +427,9 @@ public class frmCreateTable extends javax.swing.JFrame {
                 con.close();
                 System.out.println("created");
 
-                //back button code (to go back to frmTables)
+                /*//////////////////////////////////////////////////////////
+                          BACK BUTTON(to go back to frmTables)
+                 //////////////////////////////////////////////////////////*/
                 frmTables tableswindowpannel=new frmTables();
                 tableswindowpannel.setVisible(true);
                 tableswindowpannel.useDatabase = useDatabase;
@@ -446,9 +445,14 @@ public class frmCreateTable extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonExecuteCreateTableActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        // TODO add your handling code here:
-        
-        if (rowSelected != -1) {  // the only way rowselected != -1 when it is selected for editing (because there in only two state adding/editing) depending upon row selected
+   
+        /*////////////////////////////////////////////////////////////
+                     the only way rowselected != -1
+                    when it is selected for editing
+                     (because there in only two state adding/editing)
+                     depending upon row selected
+         ///////////////////////////////////////////////////////////*/
+        if (rowSelected != -1) {  
             JOptionPane.showMessageDialog(null, "Please do not delete while editing.");
         }else{
             int r = jTable1.getSelectedRow();

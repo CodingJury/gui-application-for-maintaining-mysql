@@ -141,14 +141,15 @@ public class frmDatabases extends javax.swing.JFrame {
 
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        // TODO add your handling code here:
+        /*///////////////////////////////////////
+                     BACK  BUTTON
+         //////////////////////////////////////*/
         frmLogin loginwindowpannel=new frmLogin();
         loginwindowpannel.setVisible(true);
         this.setVisible(false);
 }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonCreateDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateDatabaseActionPerformed
-        // TODO add your handling code here:
 
         String createDatabaseInput=JOptionPane.showInputDialog(this, "Enter the name of database", "Create Database", JOptionPane.OK_CANCEL_OPTION);
         if (createDatabaseInput != null) {
@@ -198,9 +199,7 @@ public class frmDatabases extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateDatabaseActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
 
-//        System.out.println("window is opened");
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         try {
@@ -230,7 +229,6 @@ public class frmDatabases extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButtonDeleteDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteDatabaseActionPerformed
-        // TODO add your handling code here:
 
         int r = jTable1.getSelectedRow();
         int c = jTable1.getSelectedColumn();
@@ -270,7 +268,6 @@ public class frmDatabases extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeleteDatabaseActionPerformed
 
     private void jButtonUseDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUseDatabaseActionPerformed
-        // TODO add your handling code here:
 
         int r = jTable1.getSelectedRow();
         int c = jTable1.getSelectedColumn();

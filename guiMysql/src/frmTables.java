@@ -164,7 +164,7 @@ public class frmTables extends javax.swing.JFrame {
 
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        // TODO add your handling code here:
+        
         frmDatabases databaseswindowpannel=new frmDatabases();
         databaseswindowpannel.setVisible(true);
         databaseswindowpannel.enterUsername = enterUsername;
@@ -173,7 +173,7 @@ public class frmTables extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonCreateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateTableActionPerformed
-        // TODO add your handling code here:
+        
         String createTableInput=JOptionPane.showInputDialog(this, "Enter the name of table", "Create Table", JOptionPane.OK_CANCEL_OPTION);
         if (createTableInput != null) {
             if(createTableInput.isEmpty()) {
@@ -209,8 +209,7 @@ public class frmTables extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonCreateTableActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-
+        
         jLabelDirectory.setText(""+jLabelDirectory.getText()+""+useDatabase);
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
@@ -241,7 +240,7 @@ public class frmTables extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButtonDeleteTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteTableActionPerformed
-        // TODO add your handling code here:
+        
         int r = jTable1.getSelectedRow();
         int c = jTable1.getSelectedColumn();
 
@@ -280,11 +279,27 @@ public class frmTables extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonDeleteTableActionPerformed
 
     private void jButtonUseTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUseTableActionPerformed
-        // TODO add your handling code here:
+        
+        int r = jTable1.getSelectedRow();
+        int c = jTable1.getSelectedColumn();
+
+        if (r == -1 || c == -1) {
+            JOptionPane.showMessageDialog(null, "Please select the table to use");
+        }else{
+            String useTable = (String)jTable1.getValueAt(r, c);
+
+            frmUseTable usetablewindowpannel=new frmUseTable();
+            usetablewindowpannel.setVisible(true);
+            usetablewindowpannel.useTable = useTable;
+            usetablewindowpannel.useDatabase = useDatabase;
+            usetablewindowpannel.enterUsername = enterUsername;
+            usetablewindowpannel.enterPassword = enterPassword;
+            this.setVisible(false);
+        }
 }//GEN-LAST:event_jButtonUseTableActionPerformed
 
     private void jButtonRenameTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRenameTableActionPerformed
-        // TODO add your handling code here:
+        
         int r = jTable1.getSelectedRow();
         int c = jTable1.getSelectedColumn();
 
@@ -335,7 +350,7 @@ public class frmTables extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonRenameTableActionPerformed
 
     private void jButtonAlterTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterTableActionPerformed
-        // TODO add your handling code here:
+        
         int r = jTable1.getSelectedRow();
         int c = jTable1.getSelectedColumn();
 
