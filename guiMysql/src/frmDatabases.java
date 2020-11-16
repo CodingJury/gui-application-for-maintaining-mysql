@@ -189,7 +189,7 @@ public class frmDatabases extends javax.swing.JFrame {
                         }
 
                     }catch(Exception e) {
-                        JOptionPane.showMessageDialog(null, "Error in creating database "+e);
+                        JOptionPane.showMessageDialog(null, e.getMessage(),"Error in creating database ",JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -224,7 +224,7 @@ public class frmDatabases extends javax.swing.JFrame {
             stmt.close();
             con.close();
         }catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Error in connectivity"+e);
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Error in initially printing database list",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -261,7 +261,7 @@ public class frmDatabases extends javax.swing.JFrame {
                     stmt.close();
                     con.close();
                 }catch(Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error in connectivity"+e);
+                    JOptionPane.showMessageDialog(null, e.getMessage(),"Error in deleting database ",JOptionPane.ERROR_MESSAGE);
                 }        
             }
         }

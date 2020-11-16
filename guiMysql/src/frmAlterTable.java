@@ -404,7 +404,7 @@ public class frmAlterTable extends javax.swing.JFrame {
                                 stmt.close();
                                 con.close();
                             }catch(Exception e) {
-                                JOptionPane.showMessageDialog(null, "Error in connectivity"+e);
+                                JOptionPane.showMessageDialog(null, e.getMessage(),"Error in adding alter query ",JOptionPane.ERROR_MESSAGE);
                             }
 
 
@@ -471,7 +471,7 @@ public class frmAlterTable extends javax.swing.JFrame {
             stmt.close();
             con.close();
         }catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Error in connectivity"+e);
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Error in initially opeaning alter page ",JOptionPane.ERROR_MESSAGE);
         }
 
 
@@ -604,7 +604,7 @@ public class frmAlterTable extends javax.swing.JFrame {
                         stmt.close();
                         con.close();
                     }catch(Exception e) {
-                        JOptionPane.showMessageDialog(null, "Error in connectivity"+e);
+                        JOptionPane.showMessageDialog(null, e.getMessage(),"Error in deleting row ",JOptionPane.ERROR_MESSAGE);
                     }
                 }
 

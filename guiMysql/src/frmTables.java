@@ -235,7 +235,7 @@ public class frmTables extends javax.swing.JFrame {
             stmt.close();
             con.close();
         }catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Error in connectivity"+e);
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Error in initially printing table list ",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -272,7 +272,7 @@ public class frmTables extends javax.swing.JFrame {
                     stmt.close();
                     con.close();
                 }catch(Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error in connectivity"+e);
+                    JOptionPane.showMessageDialog(null, e.getMessage(),"Error in deleting table ",JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -342,7 +342,7 @@ public class frmTables extends javax.swing.JFrame {
                         stmt.close();
                         con.close();
                     }catch(Exception e) {
-                        JOptionPane.showMessageDialog(null, "Error in connectivity"+e);
+                        JOptionPane.showMessageDialog(null, e.getMessage(),"Error in renaming table ",JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }

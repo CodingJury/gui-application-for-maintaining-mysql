@@ -438,7 +438,7 @@ public class frmCreateTable extends javax.swing.JFrame {
                 this.setVisible(false);
 
             }catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Error in creating table"+e);
+                JOptionPane.showMessageDialog(null, e.getMessage(),"Error in creating table format ",JOptionPane.ERROR_MESSAGE);
             }
         }
         

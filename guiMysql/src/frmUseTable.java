@@ -1,9 +1,13 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import sun.tools.jar.CommandLine;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -170,8 +174,31 @@ public class frmUseTable extends javax.swing.JFrame {
 }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        // TODO add your handling code here:
-        
+
+        System.out.println("inserting");
+//        System.out.println(jTable2.getColumnCount());
+
+
+//        for (int i = 0; i < jTable2.getColumnCount(); i++) {
+//            System.out.println(jTable2.getValueAt(0, i));
+//        }
+
+
+        try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+useDatabase+"",enterUsername,enterPassword);
+
+                Statement stmt = con.createStatement();
+                String query = "DESC "+useTable+";";
+                ResultSet rs = stmt.executeQuery(query);
+
+
+                rs.close();
+                stmt.close();
+                con.close();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage(),"Error on inserting element into table",JOptionPane.ERROR_MESSAGE);
+            }
 
 }//GEN-LAST:event_jButtonAddActionPerformed
 
@@ -263,7 +290,7 @@ public class frmUseTable extends javax.swing.JFrame {
             stmt.close();
             con.close();
         }catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Error in connectivity"+e);
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Error in initially opening useTable page ",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formWindowOpened
 
