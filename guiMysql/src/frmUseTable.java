@@ -1,13 +1,9 @@
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import sun.tools.jar.CommandLine;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -74,7 +70,7 @@ public class frmUseTable extends javax.swing.JFrame {
             }
         });
 
-        jLabelDirectory.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabelDirectory.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelDirectory.setText("localhost > Database > ");
 
         jButtonAdd.setText("Insert");
@@ -160,7 +156,8 @@ public class frmUseTable extends javax.swing.JFrame {
     String enterPassword = null;
     String useDatabase = null;
     String useTable = null;
-    
+
+    int rowSelected = -1;
     
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
@@ -175,36 +172,193 @@ public class frmUseTable extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
 
-        System.out.println("inserting");
-//        System.out.println(jTable2.getColumnCount());
+
+        /*-----------CHECKY METHOD TO CHECK ALL FIELDS ARE EMPTY----------------------*/
+        int sumOfFieldContent = 0;
+        for (int i=0; i<jTable2.getColumnCount(); i++) {
+            String value = jTable2.getValueAt(0, i).toString();
+            sumOfFieldContent+=value.trim().length();
+        }
+
+        /*----------CHECKING IF ALL FIELDS ARE EMPTY-----------------------------------*/
+        if (sumOfFieldContent == 0) {
+                JOptionPane.showMessageDialog(null, "All fields are empty");
+        }else{
+
+                String sql = "INSERT INTO "+useTable;
+                sql=sql.concat(" (");
+                for (int i=0;i<jTable2.getColumnCount();i++) {
+
+                    if (jTable2.getValueAt(0, i).equals("")) {
+                        continue;
+                    }else{
+                        String field = jTable2.getColumnName(i);
+                        sql=sql.concat("`"+field+"`");
+                        sql=sql.concat(",");
+                    }
+                }
+
+                /*-----------REMOVING LAST COMMA----------------*/
+                sql=sql.substring(0,sql.length()-1);
+
+                sql=sql.concat(")");
+                sql=sql.concat(" VALUES (");
+                for (int i=0;i<jTable2.getColumnCount();i++) {
+
+                    if (jTable2.getValueAt(0, i).equals("")) {
+                        continue;
+                    }else{
+                        sql=sql.concat("\""+jTable2.getValueAt(0, i)+"\"");
+                        sql=sql.concat(",");
+                    }
+                }
+
+                /*-----------REMOVING LAST COMMA----------------*/
+                sql=sql.substring(0,sql.length()-1);
+                sql=sql.concat(");");
+
+                System.out.println(sql);
 
 
-//        for (int i = 0; i < jTable2.getColumnCount(); i++) {
-//            System.out.println(jTable2.getValueAt(0, i));
+
+                
+//                /*------------UPDATE QUERY----------------------*/
+//                String sql2="UPDATE "+useTable;
+//                sql2=sql2.concat(" SET ");
+//                for(int i=0;i<jTable2.getColumnCount();i++) {
+//                    String name = jTable2.getColumnName(i);
+//                    String data = (String) jTable2.getValueAt(0, i);
+//                    sql2=sql2.concat(""+name+"=\""+data+"\", ");
+//                }
+//                sql2=sql2.substring(0,sql2.length()-2);
+//                sql2=sql2.concat(" WHERE ");
+//                for(int i=0;i<jTable2.getColumnCount();i++) {
+//                    String name = jTable2.getColumnName(i);
+//                    String data = (String) jTable1.getValueAt(rowSelected, i);
+//                    sql2=sql2.concat(""+name+"=\""+data+"\" AND ");
+//                }
+//                sql2=sql2.substring(0,sql2.length()-4);
+//                sql2=sql2.concat(";");
+
+                
+
+//                if (rowSelected == -1) {
+//                    System.out.println(sql);
+//                    System.out.println("inserting");
+//                }else{
+//                    System.out.println(sql2);
+//                    System.out.println("updating");
+//                }
+
+//
+//                /*------------------ADDING DATA TO MYSQL--------------------------*/
+//                if (rowSelected == -1) {
+//                    try {
+//                        Class.forName("com.mysql.jdbc.Driver");
+//                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+useDatabase+"",enterUsername,enterPassword);
+//
+//                        Statement stmt = con.createStatement();
+//
+//                        String query = sql;
+//
+//                        int rs = stmt.executeUpdate(query);
+//                        stmt.close();
+//                        con.close();
+//                    }catch(Exception e){
+//                        JOptionPane.showMessageDialog(null, e.getMessage(),"Error on inserting",JOptionPane.ERROR_MESSAGE);
+//                    }
+//
+//                    System.out.println(sql);
+//
+//                }else{
+//                    try {
+//                        Class.forName("com.mysql.jdbc.Driver");
+//                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+useDatabase+"",enterUsername,enterPassword);
+//
+//                        Statement stmt = con.createStatement();
+//
+//                        String query = sql2;
+//
+//                        int rs = stmt.executeUpdate(query);
+//                        stmt.close();
+//                        con.close();
+//                    }catch(Exception e){
+//                        JOptionPane.showMessageDialog(null, e.getMessage(),"Error on updating",JOptionPane.ERROR_MESSAGE);
+//                    }
+//
+//                    rowSelected = -1;
+//                    System.out.println(sql2);
+//
+//                }
+        }
+
+
+//
+//        /*/////////////////////////////////////////////////////////////////
+//                               RESETING ALL FIELDS
+//                          and showing new updated result
+//         ////////////////////////////////////////////////////////////////////*/
+//        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+//        DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
+//
+//        model.setRowCount(0);
+////        model2.setRowCount(0);
+//
+//
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+useDatabase+"",enterUsername,enterPassword);
+//
+//            Statement stmt = con.createStatement();
+//
+//            String query2 = "SELECT * FROM "+useTable+";";
+//            ResultSet rs2 = stmt.executeQuery(query2);
+//
+//
+//
+//            /*/////////////////////////////////////////////////////////////////
+//                                   ADDING DETAILS INTO TABLE
+//             /////////////////////////////////////////////////////////////////*/
+//            while(rs2.next()) {
+//                ArrayList<String> mainFieldData = new ArrayList<String>();
+//                for (int i=1;i<=jTable2.getColumnCount();i++) {
+//                    mainFieldData.add(rs2.getString(i));
+//                }
+//                String fieldData[] = new String[mainFieldData.size()];
+//
+//                for (int i = 0; i < mainFieldData.size(); i++) {
+//                    fieldData[i] = mainFieldData.get(i);
+//                }
+//                model.insertRow(model.getRowCount(), fieldData);
+//            }
+//
+//
+//            /*----------ENTERING DEFAULT("") FIELD TO TABLE2----------------------
+//                          to avoid null pointer exception
+//             -----------------------------------------------------------------*/
+//            String enterData[] = new String[jTable2.getColumnCount()];
+//
+//            for (int i = 0; i < jTable2.getColumnCount(); i++) {
+//                enterData[i] = "";
+//            }
+//            model2.insertRow(0, enterData);
+//
+//
+//
+//            jTable1.setModel(model);
+//            jTable2.setModel(model2);
+//            rs2.close();
+//
+//            stmt.close();
+//            con.close();
+//        }catch(Exception e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage(),"Error in reseting useTable page ",JOptionPane.ERROR_MESSAGE);
 //        }
-
-
-        try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+useDatabase+"",enterUsername,enterPassword);
-
-                Statement stmt = con.createStatement();
-                String query = "DESC "+useTable+";";
-                ResultSet rs = stmt.executeQuery(query);
-
-
-                rs.close();
-                stmt.close();
-                con.close();
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(null, e.getMessage(),"Error on inserting element into table",JOptionPane.ERROR_MESSAGE);
-            }
 
 }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        
-        int numberOfFields = 0;
+
 
         jLabelDirectory.setText(""+jLabelDirectory.getText()+""+useDatabase+" > "+useTable+" [Inserting table]");
 
@@ -221,6 +375,7 @@ public class frmUseTable extends javax.swing.JFrame {
 
 
             model.setRowCount(0);
+//            model2.setRowCount(0);
 
 
             /*//////////////////////////////////////////////////////////
@@ -230,7 +385,6 @@ public class frmUseTable extends javax.swing.JFrame {
 
             while(rs.next()) {
                 mainHeading.add(rs.getString("Field"));
-                numberOfFields++;
             }
 
             String heading[] = new String[mainHeading.size()];
@@ -252,11 +406,11 @@ public class frmUseTable extends javax.swing.JFrame {
 
 
             /*/////////////////////////////////////////////////////////////////
-                                   ADDING FIELD
+                                   ADDING DETAILS INTO TABLE
              /////////////////////////////////////////////////////////////////*/
             while(rs2.next()) {
                 ArrayList<String> mainFieldData = new ArrayList<String>();
-                for (int i=1;i<=numberOfFields;i++) {
+                for (int i=1;i<=jTable2.getColumnCount();i++) {
                     mainFieldData.add(rs2.getString(i));
                 }
                 String fieldData[] = new String[mainFieldData.size()];
@@ -280,7 +434,12 @@ public class frmUseTable extends javax.swing.JFrame {
 
 
 
+            String enterData[] = new String[jTable2.getColumnCount()];
 
+            for (int i = 0; i < jTable2.getColumnCount(); i++) {
+                enterData[i] = "";
+            }
+            model2.insertRow(0, enterData);
 
 
             jTable1.setModel(model);
@@ -295,13 +454,132 @@ public class frmUseTable extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
-        // TODO add your handling code here:
+
+        int r = jTable1.getSelectedRow();
+
+        if (r == -1) {
+            JOptionPane.showMessageDialog(null, "Please select the table row to edit");
+        }else{
+
+            for (int i = 0; i<jTable1.getColumnCount(); i++) {
+                jTable2.setValueAt(jTable1.getValueAt(r, i), 0, i);
+            }
+
+            rowSelected = r;
+        }
         
 }//GEN-LAST:event_jButtonEditActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        // TODO add your handling code here:
-        
+
+        if (rowSelected != -1) {
+            JOptionPane.showMessageDialog(null, "Please do not delete while updating.");
+        }else{
+            int r = jTable1.getSelectedRow();
+            int noOfCol = jTable1.getColumnCount();
+
+            if (r == -1) {
+                JOptionPane.showMessageDialog(null, "Please select the table row to delete");
+            }else{
+                int option = JOptionPane.showConfirmDialog(null, "Do you really want to delete table row : ","Delete Table row",JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
+                if (option == 0){
+                    String sql = "DELETE FROM "+useTable;
+                    sql=sql.concat(" WHERE ");
+
+                    for(int i = 0; i < noOfCol; i++) {
+                        String name = jTable1.getColumnName(i);
+                        String data = (String) jTable1.getValueAt(r, i);
+                        sql=sql.concat(""+name+"=\""+data+"\" AND ");
+                    }
+                    /*--------------REMOVING LAST AND ----------------*/
+                    sql=sql.substring(0,sql.length()-4);
+
+                    sql=sql.concat(";");
+
+
+                    System.out.println(sql);
+
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+useDatabase+"",enterUsername,enterPassword);
+
+                        Statement stmt = con.createStatement();
+                        String query = sql;
+                        int rs = stmt.executeUpdate(query);
+
+
+                        stmt.close();
+                        con.close();
+                    }catch(Exception e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(),"Error while deleting row ",JOptionPane.ERROR_MESSAGE);
+                    }
+
+
+                    /*/////////////////////////////////////////////////////////////////
+                                           RESETING ALL FIELDS
+                                      and showing new updated result
+                     ////////////////////////////////////////////////////////////////////*/
+                    DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+                    DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
+
+                    model.setRowCount(0);
+            //        model2.setRowCount(0);
+
+
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+useDatabase+"",enterUsername,enterPassword);
+
+                        Statement stmt = con.createStatement();
+
+                        String query2 = "SELECT * FROM "+useTable+";";
+                        ResultSet rs2 = stmt.executeQuery(query2);
+
+
+
+                        /*/////////////////////////////////////////////////////////////////
+                                               ADDING DETAILS INTO TABLE
+                         /////////////////////////////////////////////////////////////////*/
+                        while(rs2.next()) {
+                            ArrayList<String> mainFieldData = new ArrayList<String>();
+                            for (int i=1;i<=jTable2.getColumnCount();i++) {
+                                mainFieldData.add(rs2.getString(i));
+                            }
+                            String fieldData[] = new String[mainFieldData.size()];
+
+                            for (int i = 0; i < mainFieldData.size(); i++) {
+                                fieldData[i] = mainFieldData.get(i);
+                            }
+                            model.insertRow(model.getRowCount(), fieldData);
+                        }
+
+
+                        /*----------ENTERING DEFAULT("") FIELD TO TABLE2----------------------
+                                      to avoid null pointer exception
+                         -----------------------------------------------------------------*/
+                        String enterData[] = new String[jTable2.getColumnCount()];
+
+                        for (int i = 0; i < jTable2.getColumnCount(); i++) {
+                            enterData[i] = "";
+                        }
+                        model2.insertRow(0, enterData);
+
+
+
+                        jTable1.setModel(model);
+                        jTable2.setModel(model2);
+                        rs2.close();
+
+                        stmt.close();
+                        con.close();
+                    }catch(Exception e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(),"Error in reseting useTable page ",JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+            }
+        }
+
 }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     /**
