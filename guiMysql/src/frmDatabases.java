@@ -154,12 +154,14 @@ public class frmDatabases extends javax.swing.JFrame {
         String createDatabaseInput=JOptionPane.showInputDialog(this, "Enter the name of database", "Create Database", JOptionPane.OK_CANCEL_OPTION);
         if (createDatabaseInput != null) {
             if(createDatabaseInput.isEmpty()) {
-                System.out.println("empty");
+                System.out.println("Database column is empty");
             }else if (createDatabaseInput.contains(" ")){
-                System.out.println("space");
+                System.out.println("Database contain spaces");
                 JOptionPane.showMessageDialog(null, "Database name should not contain spaces.");
             }else{
-//                System.out.println("create database : "+createDatabaseInput);
+
+
+                //-----Creating a list of databases---------------
                 int r = jTable1.getRowCount();
                 ArrayList databasesname = new ArrayList();
 
@@ -167,7 +169,7 @@ public class frmDatabases extends javax.swing.JFrame {
                     databasesname.add(jTable1.getValueAt(i, 0));
                 }
 
-                //checking if table with particular database name already exit
+                //------Checking if a newly created database name is already present in list of databases----------
                 if (databasesname.contains(createDatabaseInput)) {
                     JOptionPane.showMessageDialog(null, "This database name already exist, please try different name");
                 }else{
@@ -182,6 +184,9 @@ public class frmDatabases extends javax.swing.JFrame {
                         String query2 = "SHOW DATABASES;";
                         ResultSet rs2 = stmt.executeQuery(query2);
 
+                        System.out.println("Database Created : "+createDatabaseInput);
+
+                        //-----------Reprinting the database---------------
                         model.setRowCount(0);
                         while(rs2.next()) {
                             String databasesName = rs2.getString("Database");
@@ -194,13 +199,13 @@ public class frmDatabases extends javax.swing.JFrame {
                 }
             }
         }else{
-            System.out.println("null");
+            System.out.println("You entered nothing in column (NULL)");
         }
     }//GEN-LAST:event_jButtonCreateDatabaseActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
-        
+
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -249,6 +254,8 @@ public class frmDatabases extends javax.swing.JFrame {
                     int rs1 = stmt.executeUpdate(query1);
                     String query2 = "Show databases;";
                     ResultSet rs2 = stmt.executeQuery(query2);
+
+                    System.out.println("Drop database : "+deletingdbname);
 
                     model.setRowCount(0);
                     while(rs2.next()) {

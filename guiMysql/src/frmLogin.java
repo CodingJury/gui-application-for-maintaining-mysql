@@ -118,11 +118,13 @@ public class frmLogin extends javax.swing.JFrame {
         username = jTextFieldUsername.getText();
         password = new String(jPasswordField.getPassword());
 
-//        System.out.println("Username : "+username+"\nPassword : "+password);
+        System.out.println("Username : "+username+"      Password : "+password);
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/",username,password);
+
+            
 
             /*///////////////////////////////////////
                      VISITING "frmDatabases"
@@ -133,10 +135,9 @@ public class frmLogin extends javax.swing.JFrame {
             dbwindowpannel.enterPassword = password;
             this.setVisible(false);
 
-
             con.close();
         }catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Error in connectivity","Invalid username/password",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Invalid username/password","Error in connectivity",JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_jButtonLoginActionPerformed
 
